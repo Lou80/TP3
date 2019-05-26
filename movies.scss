@@ -1,0 +1,53 @@
+#movies {
+    background-color: $main-background;   
+    padding: 0px 30px;
+    .wrapper {
+        padding: 30px;
+        width: 100%;
+        .movies_header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 0px 15px;
+            .movies_title {
+                margin: 0;
+                font-size: 18px;
+                line-height: 18px;
+                color: $body-color;
+                font-weight: 300;
+            }
+            .movies_link {
+                font-size: 12px;
+                font-weight: 300;
+                letter-spacing: .5px;
+                color: $menu-color;
+            }
+        }
+        .movies_list {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            list-style-type: none;
+            width: 100%;
+            padding-left: 0px;
+            margin: 0%;
+            .movies_item {
+                width: 15%;
+                max-height: 100%;
+                padding-top: 20px;
+                img {
+                    max-width: 100%;
+                    max-height: 300px;
+                }
+                p {
+                    margin: 0;
+                    font-size: 15px;
+                    letter-spacing: .5px;
+                    font-weight: 300;
+                    padding-top: 15px;
+                    color: $menu-color;
+                }
+            }
+        }
+    }     
+}
