@@ -34,6 +34,10 @@
   padding-left: 0px;
   margin: 0%;
 }
+#movies .wrapper .movies_list button {
+  margin-inline-start: auto;
+  margin-inline-end: auto;
+}
 #movies .wrapper .movies_list .movies_item {
   width: 15%;
   max-height: 100%;
@@ -136,6 +140,10 @@ a {
 #main_area .scroll_area #main_image {
   background-color: blue;
   height: 383px;
+}
+
+.hidden {
+  display: none;
 }
 
 /*# sourceMappingURL=style.css.map */

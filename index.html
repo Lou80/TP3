@@ -20,7 +20,7 @@
                         <img src="./assets/iso_blanco_transparent.svg" alt="Ada">
                     </li>
                 </a>
-                <a href="">
+                <a href="" id="menu_popular">
                     <li><svg id="icon_popular" viewBox="0 0 30 30" width="100%" height="100%">
                             <title>Popular</title>
                             <path
@@ -30,7 +30,7 @@
                         <p>POPULAR</p>
                     </li>
                 </a>
-                <a href="">
+                <a href="" id="menu_top_rated">
                     <li><svg id="icon_top_rated" viewBox="0 0 30 30" width="100%" height="100%">
                             <title>Top Rated</title>
                             <path
@@ -40,7 +40,7 @@
                         <p>TOP RATED</p>
                     </li>
                 </a>
-                <a href="">
+                <a href="" id="menu_upcomig">
                     <li><svg id="icon_upcoming" viewBox="0 0 30 23" width="100%" height="100%">
                             <title>Upcoming</title>
                             <path
@@ -50,7 +50,7 @@
                         <p>UPCOMING</p>
                     </li>
                 </a>
-                <a href="">
+                <a href="" id="menu_now_playing">
                     <li><svg id="icon_now_playing" viewBox="0 0 30 30" width="100%" height="100%">
                             <title>Now Playing</title>
                             <path
@@ -91,13 +91,16 @@
                             </div>
                         </header>
                         <ul class="movies_list" id="movies_list_popular"></ul>
+                        <button id='button_popular' class="load_more hidden"></button>
                     </div>
                     <div class="wrapper">
                         <header class="movies_header">
                             <h2 class="movies_title">Top Rated</h2>
                             <a href="" class="movies_link">View All<div class="movies_link_icon"></div></a>
                         </header>
-                        <ul class="movies_list" id="movies_list_top_rated"></ul>
+                        <ul class="movies_list" id="movies_list_top_rated">
+                        <button class="load_more hidden"></button>
+                        </ul>
                     </div>
                     <div class="wrapper">
                         <header class="movies_header">
@@ -105,6 +108,7 @@
                             <a href="" class="movies_link">View All<div class="movies_link_icon"></div></a>
                         </header>
                         <ul class="movies_list" id="movies_list_upcoming"></ul>
+                        <button class="load_more hidden"></button>
                     </div>
                     <div class="wrapper">
                         <header class="movies_header">
@@ -112,6 +116,7 @@
                             <a href="" class="movies_link">View All<div class="movies_link_icon"></div></a>
                         </header>
                         <ul class="movies_list" id="movies_list_now_playing"></ul>
+                        <button class="load_more hidden"></button>
                     </div>
                 </div>
             </div>
