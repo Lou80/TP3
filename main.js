@@ -1,9 +1,8 @@
 const url = 'https://api.themoviedb.org/3/movie/';
 const apiKey = '?api_key=9efd0ea0ec598fc52a2db7991ba2e31b';
 const paginaActual = 1;
-/*
-const fetchHome = category => 
 
+const fetchHome = category =>
 fetch(`${url}${category}${apiKey}`)
     .then(res => res.json())
     .then(movies => {
@@ -12,12 +11,22 @@ fetch(`${url}${category}${apiKey}`)
         .innerHTML = firstFiveMovies.map(movie =>`<li class="movies_item" id="${movie.id}><a href="" class="movies_item_link"><div class="movies_item_poster"><img src="https://image.tmdb.org/t/p/original${movie.poster_path}"></div><div class="movies_item_content"><p class="movies_item_title">${movie.original_title}</p></div></a></li>`).join('');
     }
 );
+
+getHome = () => {
 fetchHome('popular');
 fetchHome('top_rated');
 fetchHome('upcoming');
 fetchHome('now_playing');
-*/
+};
 
+getHome();
+
+document.getElementById('menu_logo').onclick = function () {
+    getHome();
+};
+    
+
+/*
 const getAll = category =>
 
 fetch(`${url}${category}${apiKey}&page=${paginaActual}`)
@@ -32,3 +41,4 @@ fetch(`${url}${category}${apiKey}&page=${paginaActual}`)
     }
 );
 getAll('popular');
+*/
