@@ -21,14 +21,11 @@ fetchHome('now_playing');
 
 getHome();
 
-document.getElementById('menu_logo').onclick = function () {
+document.getElementById('logo').onclick = function () {
     getHome();
 };
-    
 
-/*
-const getAll = category =>
-
+const getCategory = category =>
 fetch(`${url}${category}${apiKey}&page=${paginaActual}`)
     .then(res => res.json())
     .then(movies => {
@@ -40,5 +37,12 @@ fetch(`${url}${category}${apiKey}&page=${paginaActual}`)
         
     }
 );
-getAll('popular');
-*/
+
+document.getElementById('menu_popular').onclick = function (e) {
+    e.preventDefault;
+    console.log('hola');
+getCategory('popular');
+};
+
+
+
