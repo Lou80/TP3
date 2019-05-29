@@ -34,10 +34,6 @@
   padding-left: 0px;
   margin: 0%;
 }
-#movies .wrapper .movies_list button {
-  padding-left: auto;
-  padding-right: auto;
-}
 #movies .wrapper .movies_list .movies_item {
   width: 15%;
   max-height: 100%;
@@ -93,6 +89,7 @@ body {
   font-size: 9px;
   letter-spacing: 0.5px;
   font-weight: 300;
+  cursor: pointer;
 }
 #side_bar ul li svg {
   height: 20px;
@@ -140,6 +137,29 @@ body {
 
 .hidden {
   display: none;
+}
+
+.button {
+  text-align: center;
+  padding: 25px 0px;
+}
+
+button {
+  border: 1px solid #081c24;
+  font-weight: 300;
+  font-size: 11px;
+  line-height: 2;
+  letter-spacing: 0.5px;
+  padding: 5px 20px 4px;
+  cursor: pointer;
+  color: #081c24;
+  background: transparent;
+  outline: none;
+}
+
+.button_onmouseover {
+  background-color: #081c24;
+  color: #f8f8f8;
 }
 
 /*# sourceMappingURL=style.css.map */

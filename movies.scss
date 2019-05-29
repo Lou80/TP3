@@ -23,7 +23,7 @@
                 color: $menu-color;
             }
         }
-        .movies_list {
+            .movies_list {
             display: flex;
             flex-wrap: wrap;
             justify-content: space-between;
@@ -31,10 +31,6 @@
             width: 100%;
             padding-left: 0px;
             margin: 0%;
-            button {
-                padding-left: auto;
-                padding-right: auto;
-            }
             .movies_item {
                 width: 15%;
                 max-height: 100%;

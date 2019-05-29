@@ -38,6 +38,7 @@ body {
         font-size: 9px;
         letter-spacing: .5px;
         font-weight: 300;
+        cursor: pointer;
         svg {
             height: 20px;
             width: 20px;
@@ -88,5 +89,28 @@ body {
 
 .hidden {
     display: none;
+}
+
+.button {
+    text-align: center;
+    padding: 25px 0px;
+}
+
+button {
+    border: 1px solid $body-color;
+    font-weight: 300;
+    font-size: 11px;
+    line-height: 2;
+    letter-spacing: .5px;
+    padding: 5px 20px 4px;
+    cursor: pointer;
+    color: $body-color;
+    background: transparent;
+    outline: none;
+}
+
+.button_onmouseover {
+    background-color: $body-color;
+    color: $main-background;
 }
 
