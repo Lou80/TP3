@@ -18,12 +18,14 @@
   line-height: 18px;
   color: #081c24;
   font-weight: 300;
+  text-transform: capitalize;
 }
 #movies .wrapper .movies_header .movies_link {
   font-size: 12px;
   font-weight: 300;
   letter-spacing: 0.5px;
   color: rgba(8, 28, 36, 0.5);
+  cursor: pointer;
 }
 #movies .wrapper .movies_list {
   display: flex;

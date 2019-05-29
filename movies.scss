@@ -15,12 +15,14 @@
                 line-height: 18px;
                 color: $body-color;
                 font-weight: 300;
+                text-transform: capitalize;
             }
             .movies_link {
                 font-size: 12px;
                 font-weight: 300;
                 letter-spacing: .5px;
                 color: $menu-color;
+                cursor: pointer;
             }
         }
             .movies_list {
