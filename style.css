@@ -35,8 +35,8 @@
   margin: 0%;
 }
 #movies .wrapper .movies_list button {
-  margin-inline-start: auto;
-  margin-inline-end: auto;
+  padding-left: auto;
+  padding-right: auto;
 }
 #movies .wrapper .movies_list .movies_item {
   width: 15%;
@@ -81,11 +81,7 @@ body {
   margin-block-start: 0%;
 }
 
-a {
-  text-decoration: none;
-}
-
-#side_bar ul a li {
+#side_bar ul li {
   height: 96px;
   width: 100%;
   display: flex;
@@ -98,7 +94,7 @@ a {
   letter-spacing: 0.5px;
   font-weight: 300;
 }
-#side_bar ul a li svg {
+#side_bar ul li svg {
   height: 20px;
   width: 20px;
   fill: rgba(8, 28, 36, 0.5);

@@ -25,10 +25,8 @@ body {
         }
     }
 }
-a {
-    text-decoration: none;
-}
-#side_bar ul a li {
+
+#side_bar ul li {
         height: 96px;
         width: 100%;
         display: flex;
@@ -91,3 +89,4 @@ a {
 .hidden {
     display: none;
 }
+
