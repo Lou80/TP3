@@ -40,6 +40,7 @@
   width: 15%;
   max-height: 100%;
   padding-top: 20px;
+  cursor: pointer;
 }
 #movies .wrapper .movies_list .movies_item img {
   max-width: 100%;
@@ -162,6 +163,10 @@ button {
 .button_onmouseover {
   background-color: #081c24;
   color: #f8f8f8;
+}
+
+.no_cursor {
+  cursor: none;
 }
 
 /*# sourceMappingURL=style.css.map */

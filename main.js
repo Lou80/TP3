@@ -44,24 +44,33 @@ container.innerHTML = `<div class="wrapper"><header class="movies_header">
 </div>`;
 const moviesTitle = document.querySelector('h2');
 moviesTitle.innerText = `${category}${' Movies'}`.replace('_', ' ');
-
 fetch(`${url}${category}${apiKey}&page=${paginaActual}`)
     .then(res => res.json())
     .then(movies => {
         const allMovies = movies.results;
+        /*for (let index = 0; index < allMovies.length; index++) {
+            if (!allMovies[index].poster_path) {
+                console.log(allMovies[index]);
+                allMovies[index].poster_path = './assets/no-image.png';
+            }
+        };*/
+        console.log(allMovies);
         document.getElementById(`${'movies_list_'}${category}`)
         .innerHTML = allMovies.map(movie => `<li class="movies_item" id="${movie.id}">
         <div class="movies_item_poster"><img src="https://image.tmdb.org/t/p/original${movie.poster_path}">
         </div><div class="movies_item_content"><p class="movies_item_title">${movie.original_title}</p></div></li>`)
         .join('');
-        document.querySelector('.movies_link').innerText = `${movies.total_results}${' results'}`
-                
-    }
-);
+        document.querySelector('.movies_link')
+        .innerText = `${movies.total_results}${' results'}`
+        
+        
+    });
+
+    
 document.querySelector('button').onclick = function () {
     paginaActual += 1;
     fetchCategory(`${this.id}`);
-    }
+};
 
 };
 
