@@ -9,7 +9,6 @@ const container = document.getElementById('container');
 const fetchHome = category => {
 mainImage.classList.remove('hidden');
 container.innerHTML = '';
-mainScreen.classList.remove('hidden');
 fetch(`${url}${category}${apiKey}`)
     .then(res => res.json())
     .then(movies => {
@@ -17,7 +16,7 @@ fetch(`${url}${category}${apiKey}`)
         document.getElementById(`${'movies_list_'}${category}`)
         .innerHTML = firstFiveMovies.map(movie =>`<li class="movies_item" id="${movie.id}">
         <div class="movies_item_poster"><img src="https://image.tmdb.org/t/p/original${movie.poster_path}">
-        </div><div class="movies_item_content"><p class="movies_item_title">${movie.original_title}</p></div></li>`)
+        </div><div class="movies_item_content"><p class="movies_item_title">${movie.title}</p></div></li>`)
         .join('');
     });
 };
@@ -32,10 +31,9 @@ fetchHome('now_playing');
 getHome();
 
 
-const fetchCategory = category => {
-mainScreen.classList.add('hidden');  
+const fetchCategory = category => {  
 mainImage.classList.add('hidden');
-container.innerHTML = `<div class="wrapper"><header class="movies_header">
+mainScreen.innerHTML = `<div class="wrapper"><header class="movies_header">
     <h2 class="movies_title"></h2>
     <div class="movies_link"><div class="movies_link_icon">
     </div></div></header>
@@ -58,7 +56,7 @@ fetch(`${url}${category}${apiKey}&page=${paginaActual}`)
         document.getElementById(`${'movies_list_'}${category}`)
         .innerHTML = allMovies.map(movie => `<li class="movies_item" id="${movie.id}">
         <div class="movies_item_poster"><img src="https://image.tmdb.org/t/p/original${movie.poster_path}">
-        </div><div class="movies_item_content"><p class="movies_item_title">${movie.original_title}</p></div></li>`)
+        </div><div class="movies_item_content"><p class="movies_item_title">${movie.title}</p></div></li>`)
         .join('');
         document.querySelector('.movies_link')
         .innerText = `${movies.total_results}${' results'}`
