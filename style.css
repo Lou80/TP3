@@ -1,5 +1,4 @@
 #movies {
-  background-color: #f8f8f8;
   padding: 30px;
 }
 #movies #main_screen {
@@ -29,6 +28,8 @@
   font-weight: 300;
   letter-spacing: 0.5px;
   color: rgba(8, 28, 36, 0.5);
+}
+#movies #main_screen .wrapper .movies_header .movies_link .view_all {
   cursor: pointer;
 }
 #movies #main_screen .wrapper .movies_list {
@@ -147,7 +148,7 @@ body {
   display: none;
 }
 
-.button {
+.load_more {
   text-align: center;
   padding: 25px 0px;
 }
@@ -165,13 +166,17 @@ button {
   outline: none;
 }
 
-.button_onmouseover {
+button:hover {
   background-color: #081c24;
   color: #f8f8f8;
 }
 
 .no_cursor {
   cursor: none;
+}
+
+.selected {
+  background-color: #f8f8f8;
 }
 
 /*# sourceMappingURL=style.css.map */

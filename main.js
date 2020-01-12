@@ -1,131 +1,111 @@
 const url = 'https://api.themoviedb.org/3/movie/';
 const apiKey = '?api_key=9efd0ea0ec598fc52a2db7991ba2e31b';
-let paginaActual = 1;
+let currentPage = 1;
 const mainScreen = document.getElementById('main_screen');
 const mainImage = document.getElementById('main_image');
+const menuItems = [
+	...document.querySelectorAll('#side_bar ul li')
+];
 const categories = [
 	'popular',
 	'top_rated',
 	'upcoming',
 	'now_playing'
 ];
-
 async function getFetch (category){
-	let response = await fetch(`${url}${category}${apiKey}&page=${paginaActual}`);
+	let response = await fetch(`${url}${category}${apiKey}&page=${currentPage}`);
 	let movies = await response.json();
 	let fetchedMovies = await movies.results;
-	return fetchedMovies;
+	let totalResults = await movies.total_results;
+	return [
+		fetchedMovies,
+		totalResults
+	];
 }
-
-function getFiveResults (list){
-	let fiveResults = list.slice(0, 5);
-	return fiveResults;
+function getSomeResults (list, start, end){
+	let someResults = list.slice(start, end);
+	return someResults;
 }
-function doAllCategories (method){
+function doAllCategories (method, flag, start, end){
 	categories.forEach((category) => {
-		method(category);
+		method(category, flag, start, end);
 	});
 }
 const appendWrapperAndTitle = (category) => {
 	mainScreen.innerHTML += `<div class="wrapper">
-    <header class="movies_header">
-        <h2 class="movies_title" id="movies_title_${category}"></h2>
-        <div class="movies_link" id="movies_link_${category}">
-        View All<div class="movies_link_icon"></div>
-        </div>
-    </header>
-    <ul class="movies_list" id="${'movies_list_'}${category}"></ul>
-    <div class="button hidden">
-        <button id="${category}" class="load_more">LOAD MORE</button>
-    </div>
-</div>`;
+    	<header class="movies_header" id="header_${category}">
+        	<h2 class="movies_title" id="movies_title_${category}"></h2>
+			<div class="movies_link" id="movies_link_${category}">
+				<span class='view_all' onclick="viewAll()">View All →</span>
+				<span class='hidden results'></span>
+			</div>
+    	</header>
+    	<ul class="movies_list" id="${'movies_list_'}${category}"></ul>
+    		<div class="load_more hidden">
+				<button id="load_more_${category}" onclick="loadMore()" class="load_more_btn">
+					LOAD MORE</button>
+    		</div>
+	</div>`;
 	const moviesTitle = document.getElementById(`movies_title_${category}`);
 	moviesTitle.innerText = `${category}${' Movies'}`.replace('_', ' ');
 };
-
 const getMovies = (list) => {
-	let mapList = list
+	let mappedList = list
 		.map(
-			(movie) => `
-        <li class="movies_item" id="${movie.id}">
-            <div class="movies_item_poster">
-                <img src="https://image.tmdb.org/t/p/original${movie.poster_path}">
-            </div>
-            <div class="movies_item_content">
-                <p class="movies_item_title">${movie.title}</p>
-            </div>
-        </li>`
+			(movie) =>
+				`<li class="movies_item" id="${movie.id}">
+            		<div class="movies_item_poster">
+                		<img src="https://image.tmdb.org/t/p/original${movie.poster_path}">
+            		</div>
+            		<div class="movies_item_content">
+                		<p class="movies_item_title">${movie.title}</p>
+            		</div>
+        		</li>`
 		)
 		.join('');
-	return mapList;
+	return mappedList;
 };
-
-const getHomeList = async (category) => {
+const drawLists = async (category, slice, start, end) => {
 	await appendWrapperAndTitle(category);
 	const moviesList = await document.getElementById(`movies_list_${category}`);
 	let getAllMovies = await getFetch(category);
-	let getFive = await getFiveResults(getAllMovies);
-	let doMap = await getMovies(getFive);
+	const link = await document.querySelector('.movies_link span.results');
+	link.innerText = `${getAllMovies[1]} results`;
+	if (slice) {
+		getSelection = await getSomeResults(getAllMovies[0], start, end);
+	}
+	else getSelection = getAllMovies[0];
+	let doMap = await getMovies(getSelection);
 	let draw = (moviesList.innerHTML += doMap);
 	return draw;
 };
-
 const getHome = () => {
 	mainImage.classList.remove('hidden');
-	doAllCategories(getHomeList);
+	mainScreen.innerHTML = '';
+	currentPage = 1;
+	doAllCategories(drawLists, true, 0, 5);
 };
-
 getHome();
-
-const uls = document.getElementsByClassName('movies_list');
-uls.map((ul) => {
-	return console.log(ul);
-});
-
-const fetchCategory = (category) => {
+const getCategory = async (category) => {
 	mainImage.classList.add('hidden');
-	getFetch(category);
-	document.querySelector(`.movies_link_${category}`).innerText = `${movies.total_results}${' results'}`;
+	mainScreen.innerHTML = '';
+	await drawLists(category, false);
+	await document.querySelector('.load_more').classList.remove('hidden');
+	const link = await document.querySelector('.movies_link span.results');
+	link.classList.remove('hidden');
+	await document.querySelector('.movies_link span.view_all').classList.add('hidden');
+	focusSelection(category);
 };
-
-document.querySelector('button').onclick = function (){
-	paginaActual += 1;
-	fetchCategory(`${this.id}`);
+const viewAll = () => {
+	getCategory(event.target.parentNode.id.substring(12));
 };
-
-getCategory = (category) => {
-	paginaActual = 1;
-	fetchCategory(category);
+const loadMore = () => {
+	currentPage += 1;
+	getCategory(event.target.id.substring(10));
 };
-
-document.getElementById('logo').onclick = function (){
-	getHome();
-};
-document.getElementById('menu_popular').onclick = function (){
-	getCategory('popular');
-};
-document.getElementById('menu_top_rated').onclick = function (){
-	getCategory('top_rated');
-};
-document.getElementById('menu_upcoming').onclick = function (){
-	getCategory('upcoming');
-};
-document.getElementById('menu_now_playing').onclick = function (){
-	getCategory('now_playing');
-};
-
-document.getElementById('movies_link_popular').onclick = function (){
-	getCategory('popular');
-};
-
-document.getElementById('movies_link_top_rated').onclick = function (){
-	getCategory('top_rated');
-};
-
-document.getElementById('movies_link_upcoming').onclick = function (){
-	getCategory('upcoming');
-};
-
-document.getElementById('movies_link_now_playing').onclick = function (){
-	getCategory('now_playing');
+const focusSelection = (category) => {
+	menuItems.forEach((listItem) => {
+		listItem.classList.remove('selected');
+	});
+	document.getElementById(`menu_${category}`).classList.add('selected');
 };
