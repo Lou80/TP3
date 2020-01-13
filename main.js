@@ -1,5 +1,6 @@
-const url = 'https://api.themoviedb.org/3/movie/';
+const apiURL = 'https://api.themoviedb.org/3/movie/';
 const apiKey = '?api_key=9efd0ea0ec598fc52a2db7991ba2e31b';
+const imgSrcURL = 'https://image.tmdb.org/t/p/original';
 let currentPage = 1;
 const mainScreen = document.getElementById('main_screen');
 const mainImage = document.getElementById('main_image');
@@ -13,10 +14,11 @@ const categories = [
 	'now_playing'
 ];
 async function getFetch (category){
-	let response = await fetch(`${url}${category}${apiKey}&page=${currentPage}`);
+	let response = await fetch(`${apiURL}${category}${apiKey}&page=${currentPage}`);
 	let movies = await response.json();
 	let fetchedMovies = await movies.results;
 	let totalResults = await movies.total_results;
+	console.log(movies.results);
 	return [
 		fetchedMovies,
 		totalResults
@@ -54,13 +56,25 @@ const getMovies = (list) => {
 		.map(
 			(movie) =>
 				`<li class="movies_item" id="${movie.id}">
-            		<div class="movies_item_poster">
-                		<img src="https://image.tmdb.org/t/p/original${movie.poster_path}">
-            		</div>
-            		<div class="movies_item_content">
-                		<p class="movies_item_title">${movie.title}</p>
-            		</div>
-        		</li>`
+					<div class="movies_item_content" onclick="movieDetails(${movie.id})">
+            			<div class="movies_item_poster">
+                			<img src="${imgSrcURL}${movie.poster_path}"/>
+            			</div>
+            			<div class="movies_item_info">
+                			<p class="movies_item_title">${movie.title}</p>
+						</div>
+					</div>
+				</li>
+				<div class="hidden modal_wrapper" id="details_${movie.id}">
+					<div class="background_poster">
+						<img src="${imgSrcURL}${movie.backdrop_path}"/>
+					</div>
+					<div class="movie_info">
+					</div>
+					<div class="main_img">
+						<img src="${imgSrcURL}${movie.poster_path}"/>
+					</div>	
+				</div>`
 		)
 		.join('');
 	return mappedList;
@@ -108,4 +122,9 @@ const focusSelection = (category) => {
 		listItem.classList.remove('selected');
 	});
 	document.getElementById(`menu_${category}`).classList.add('selected');
+};
+
+const movieDetails = (movieId) => {
+	console.log(movieId);
+	document.getElementById(`details_${movieId}`).classList.remove('hidden');
 };

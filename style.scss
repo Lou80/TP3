@@ -1,5 +1,7 @@
 @import 'colors';
 @import 'movies';
+@import 'movies_item';
+@import 'modal_movie_details';
 
 * {
   box-sizing: border-box;
@@ -16,7 +18,10 @@ body {
 #app {
   display: flex;
   #side_bar {
-    width: 95px;
+    width: 6%;
+    position: fixed;
+    left: 0%;
+    margin-left: 0px;
     ul {
       list-style: none;
       padding-inline-start: 0px;
@@ -44,7 +49,6 @@ body {
     fill: $menu-color;
   }
 }
-
 #logo {
   height: 75px !important;
   background-color: black;
@@ -53,15 +57,19 @@ body {
     height: 40px;
   }
 }
-
 #main_area {
-  width: 100%;
+  width: 94%;
+  position: relative;
+  left: 6%;
   #search_area {
     width: 100%;
     height: 75px;
     display: flex;
     align-items: center;
     padding-inline-start: 50px;
+    position: fixed;
+    top: 0%;
+    left: 1.5%;
     #search_icon {
       width: 18px;
       height: 18px;
