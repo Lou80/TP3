@@ -73,8 +73,7 @@ const getMovies = (list) => {
                 			<p class="movies_item_title">${movie.title}</p>
 						</div>
 					</div>
-				</li>
-				`
+				</li>`
 		)
 		.join('');
 	return mappedList;
@@ -98,6 +97,9 @@ const getHome = () => {
 	mainScreen.innerHTML = '';
 	currentPage = 1;
 	doAllCategories(drawLists, true, 0, 5);
+	menuItems.forEach((listItem) => {
+		listItem.classList.remove('selected');
+	});
 };
 getHome();
 const getCategory = async (category) => {
@@ -124,7 +126,10 @@ const focusSelection = (category) => {
 	document.getElementById(`menu_${category}`).classList.add('selected');
 };
 const appendMovieDetails = (movie) => {
-	modalWrapper.innerHTML = `<div class="background_poster">
+	modalWrapper.innerHTML = '';
+	modalWrapper.innerHTML += `
+	<button class="close_btn" onclick="closeMovieModal()">X</button>
+	<div class="background_poster">
 		<img src="${imgSrcURL}${movie.backdrop_path}"/>
 	</div>
 	<div class="movie_info">
@@ -133,10 +138,16 @@ const appendMovieDetails = (movie) => {
 		<img src="${imgSrcURL}${movie.poster_path}"/>
 	</div>	`;
 };
-
 const openMovieDetails = async (movieId) => {
 	const movie = await getFetchMovie(movieId);
 	await appendMovieDetails(movie);
 	modalWrapper.classList.remove('hidden');
-	app.classList.add('modal_open');
+	//app.classList.add('modal_open');
+	app.onclick = () => {
+		modalWrapper.classList.add('hidden');
+	};
+};
+const closeMovieModal = () => {
+	modalWrapper.classList.add('hidden');
+	//app.classList.remove('modal_open');
 };

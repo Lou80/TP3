@@ -1,40 +1,56 @@
 .modal_wrapper {
-  width: 600px;
-  height: 500px;
-  max-width: 100%;
-  max-height: 100%;
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 9999;
+	width: 600px;
+	height: 500px;
+	max-width: 100%;
+	max-height: 100%;
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	z-index: 9999;
+	outline: 9999px solid rgba(0, 0, 0, 0.9);
+	button.close_btn {
+		position: fixed;
+		top: 3%;
+		right: 3%;
+		height: 25px;
+		width: 25px;
+		font-size: 15px;
+		font-weight: 500;
+		color: $close-button;
+		border: none;
+		padding: 0px 2px;
+	}
+	.close_btn:hover {
+		color: $no-background;
+	}
+	.background_poster {
+		height: 50%;
+		width: 100%;
+		background-color: $body-color;
+		img {
+			width: 100%;
+			max-height: 100%;
+		}
+	}
+	.movie_info {
+		height: 50%;
+		width: 100%;
+		background-color: $main-background;
 
-  .background_poster {
-    height: 50%;
-    width: 100%;
-    img {
-      width: 100%;
-      max-height: 100%;
-    }
-  }
-  .movie_info {
-    height: 50%;
-    width: 100%;
-    background-color: $main-background;
+		/* spacing as needed */
+		padding: 20px 50px 20px 20px;
 
-    /* spacing as needed */
-    padding: 20px 50px 20px 20px;
-
-    /* let it scroll */
-    overflow: auto;
-  }
-  .main_img {
-    img {
-      position: fixed;
-      left: 5%;
-      top: 5%;
-      max-width: 15rem;
-      max-height: 20rem;
-    }
-  }
+		/* let it scroll */
+		overflow: auto;
+	}
+	.main_img {
+		img {
+			position: fixed;
+			left: 5%;
+			top: 5%;
+			max-width: 15rem;
+			max-height: 20rem;
+		}
+	}
 }

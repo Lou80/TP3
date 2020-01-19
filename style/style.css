@@ -75,10 +75,27 @@
   left: 50%;
   transform: translate(-50%, -50%);
   z-index: 9999;
+  outline: 9999px solid rgba(0, 0, 0, 0.9);
+}
+.modal_wrapper button.close_btn {
+  position: fixed;
+  top: 3%;
+  right: 3%;
+  height: 25px;
+  width: 25px;
+  font-size: 15px;
+  font-weight: 500;
+  color: grey;
+  border: none;
+  padding: 0px 2px;
+}
+.modal_wrapper .close_btn:hover {
+  color: white;
 }
 .modal_wrapper .background_poster {
   height: 50%;
   width: 100%;
+  background-color: #081c24;
 }
 .modal_wrapper .background_poster img {
   width: 100%;
@@ -238,7 +255,7 @@ button:hover {
 }
 
 .modal_open {
-  opacity: 0.3;
+  cursor: text !important;
 }
 
 /*# sourceMappingURL=style.css.map */
