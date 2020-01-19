@@ -13,7 +13,9 @@ const categories = [
 	'upcoming',
 	'now_playing'
 ];
-async function getFetch (category){
+const app = document.getElementById('app');
+const modalWrapper = document.querySelector('.modal_wrapper');
+async function getFetchCategory (category){
 	let response = await fetch(`${apiURL}${category}${apiKey}&page=${currentPage}`);
 	let movies = await response.json();
 	let fetchedMovies = await movies.results;
@@ -24,6 +26,13 @@ async function getFetch (category){
 		totalResults
 	];
 }
+async function getFetchMovie (movieId){
+	let response = await fetch(`${apiURL}${movieId}${apiKey}`);
+	let movie = await response.json();
+	console.log(movie);
+	return movie;
+}
+getFetchMovie('419704');
 function getSomeResults (list, start, end){
 	let someResults = list.slice(start, end);
 	return someResults;
@@ -56,7 +65,7 @@ const getMovies = (list) => {
 		.map(
 			(movie) =>
 				`<li class="movies_item" id="${movie.id}">
-					<div class="movies_item_content" onclick="movieDetails(${movie.id})">
+					<div class="movies_item_content" onclick="openMovieDetails(${movie.id})">
             			<div class="movies_item_poster">
                 			<img src="${imgSrcURL}${movie.poster_path}"/>
             			</div>
@@ -65,16 +74,7 @@ const getMovies = (list) => {
 						</div>
 					</div>
 				</li>
-				<div class="hidden modal_wrapper" id="details_${movie.id}">
-					<div class="background_poster">
-						<img src="${imgSrcURL}${movie.backdrop_path}"/>
-					</div>
-					<div class="movie_info">
-					</div>
-					<div class="main_img">
-						<img src="${imgSrcURL}${movie.poster_path}"/>
-					</div>	
-				</div>`
+				`
 		)
 		.join('');
 	return mappedList;
@@ -82,7 +82,7 @@ const getMovies = (list) => {
 const drawLists = async (category, slice, start, end) => {
 	await appendWrapperAndTitle(category);
 	const moviesList = await document.getElementById(`movies_list_${category}`);
-	let getAllMovies = await getFetch(category);
+	let getAllMovies = await getFetchCategory(category);
 	const link = await document.querySelector('.movies_link span.results');
 	link.innerText = `${getAllMovies[1]} results`;
 	if (slice) {
@@ -123,8 +123,20 @@ const focusSelection = (category) => {
 	});
 	document.getElementById(`menu_${category}`).classList.add('selected');
 };
+const appendMovieDetails = (movie) => {
+	modalWrapper.innerHTML = `<div class="background_poster">
+		<img src="${imgSrcURL}${movie.backdrop_path}"/>
+	</div>
+	<div class="movie_info">
+	</div>
+	<div class="main_img">
+		<img src="${imgSrcURL}${movie.poster_path}"/>
+	</div>	`;
+};
 
-const movieDetails = (movieId) => {
-	console.log(movieId);
-	document.getElementById(`details_${movieId}`).classList.remove('hidden');
+const openMovieDetails = async (movieId) => {
+	const movie = await getFetchMovie(movieId);
+	await appendMovieDetails(movie);
+	modalWrapper.classList.remove('hidden');
+	app.classList.add('modal_open');
 };

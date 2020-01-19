@@ -66,17 +66,15 @@
 }
 
 .modal_wrapper {
-  width: 40%;
-  height: 75%;
-  min-height: 35rem;
-  min-width: 17rem;
-  border: black solid 1px;
+  width: 600px;
+  height: 500px;
+  max-width: 100%;
+  max-height: 100%;
   position: fixed;
   top: 50%;
   left: 50%;
-  margin-top: -50px;
-  margin-left: -50px;
   transform: translate(-50%, -50%);
+  z-index: 9999;
 }
 .modal_wrapper .background_poster {
   height: 50%;
@@ -90,6 +88,10 @@
   height: 50%;
   width: 100%;
   background-color: #f8f8f8;
+  /* spacing as needed */
+  padding: 20px 50px 20px 20px;
+  /* let it scroll */
+  overflow: auto;
 }
 .modal_wrapper .main_img img {
   position: fixed;
@@ -114,6 +116,7 @@ body {
 
 #app {
   display: flex;
+  z-index: 1;
 }
 #app #side_bar {
   width: 6%;
@@ -232,6 +235,10 @@ button:hover {
 
 .selected {
   background-color: #f8f8f8;
+}
+
+.modal_open {
+  opacity: 0.3;
 }
 
 /*# sourceMappingURL=style.css.map */

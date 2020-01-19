@@ -1,35 +1,40 @@
 .modal_wrapper {
-	width: 40%;
-	height: 75%;
-	min-height: 35rem;
-	min-width: 17rem;
-	border: black solid 1px;
-	position: fixed;
-	top: 50%;
-	left: 50%;
-	margin-top: -50px;
-	margin-left: -50px;
-	transform: translate(-50%, -50%);
-	.background_poster {
-		height: 50%;
-		width: 100%;
-		img {
-			width: 100%;
-			max-height: 100%;
-		}
-	}
-	.movie_info {
-		height: 50%;
-		width: 100%;
-		background-color: $main-background;
-	}
-	.main_img {
-		img {
-			position: fixed;
-			left: 5%;
-			top: 5%;
-			max-width: 15rem;
-			max-height: 20rem;
-		}
-	}
+  width: 600px;
+  height: 500px;
+  max-width: 100%;
+  max-height: 100%;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 9999;
+
+  .background_poster {
+    height: 50%;
+    width: 100%;
+    img {
+      width: 100%;
+      max-height: 100%;
+    }
+  }
+  .movie_info {
+    height: 50%;
+    width: 100%;
+    background-color: $main-background;
+
+    /* spacing as needed */
+    padding: 20px 50px 20px 20px;
+
+    /* let it scroll */
+    overflow: auto;
+  }
+  .main_img {
+    img {
+      position: fixed;
+      left: 5%;
+      top: 5%;
+      max-width: 15rem;
+      max-height: 20rem;
+    }
+  }
 }
