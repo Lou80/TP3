@@ -66,8 +66,8 @@
 }
 
 .modal_wrapper {
-  width: 600px;
-  height: 500px;
+  width: 700px;
+  height: 570px;
   max-width: 100%;
   max-height: 100%;
   position: fixed;
@@ -76,6 +76,7 @@
   transform: translate(-50%, -50%);
   z-index: 9999;
   outline: 9999px solid rgba(0, 0, 0, 0.9);
+  font-family: "Roboto", sans-serif;
 }
 .modal_wrapper button.close_btn {
   position: fixed;
@@ -85,7 +86,7 @@
   width: 25px;
   font-size: 15px;
   font-weight: 500;
-  color: grey;
+  color: #f8f8f8;
   border: none;
   padding: 0px 2px;
 }
@@ -95,26 +96,59 @@
 .modal_wrapper .background_poster {
   height: 50%;
   width: 100%;
-  background-color: #081c24;
+}
+.modal_wrapper .background_poster .poster_text {
+  position: fixed;
+  top: 15%;
+  left: 40%;
+}
+.modal_wrapper .background_poster .poster_text .modal_movie_title {
+  color: deeppink;
+  font-size: x-large;
+  margin-bottom: 0px;
+  font-weight: 500;
+}
+.modal_wrapper .background_poster .poster_text .tagline {
+  margin-top: 0px;
+  color: #f8f8f8;
+  font-weight: 100;
+  font-size: 0.9rem;
 }
 .modal_wrapper .background_poster img {
   width: 100%;
   max-height: 100%;
 }
 .modal_wrapper .movie_info {
-  height: 50%;
   width: 100%;
   background-color: #f8f8f8;
-  /* spacing as needed */
-  padding: 20px 50px 20px 20px;
-  /* let it scroll */
+  padding: 12px 22px 20px 40%;
+  height: 50%;
+}
+.modal_wrapper .movie_info .overview {
+  height: 45%;
   overflow: auto;
+  margin-bottom: 20px;
+}
+.modal_wrapper .movie_info .overview,
+.modal_wrapper .movie_info .genres,
+.modal_wrapper .movie_info .date {
+  font-size: 0.8rem;
+  font-weight: 100;
+}
+.modal_wrapper .movie_info .genres,
+.modal_wrapper .movie_info .date {
+  margin: 0px;
+}
+.modal_wrapper .movie_info .title {
+  color: deeppink;
+  margin-bottom: 0px;
+  margin-top: 10px;
 }
 .modal_wrapper .main_img img {
   position: fixed;
   left: 5%;
-  top: 5%;
-  max-width: 15rem;
+  top: 7%;
+  max-width: 14rem;
   max-height: 20rem;
 }
 

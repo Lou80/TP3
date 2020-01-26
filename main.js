@@ -20,7 +20,6 @@ async function getFetchCategory (category){
 	let movies = await response.json();
 	let fetchedMovies = await movies.results;
 	let totalResults = await movies.total_results;
-	console.log(movies.results);
 	return [
 		fetchedMovies,
 		totalResults
@@ -127,12 +126,22 @@ const focusSelection = (category) => {
 };
 const appendMovieDetails = (movie) => {
 	modalWrapper.innerHTML = '';
+	//console.log(movie.genres);
 	modalWrapper.innerHTML += `
 	<button class="close_btn" onclick="closeMovieModal()">X</button>
 	<div class="background_poster">
+		<div class="poster_text">
+			<p class="modal_movie_title">${movie.title}</p>
+			<p class="tagline">${movie.tagline}<p>
+		</div>
 		<img src="${imgSrcURL}${movie.backdrop_path}"/>
 	</div>
 	<div class="movie_info">
+		<p class="overview">${movie.overview}</p>
+		<p class="title">GENRES</p>
+		<p class="genres">${movie.genres.map((genre) => genre.name)}</p>
+		<p class="title">RELEASE DATE</p>
+		<p class="date">${movie.release_date}</p>
 	</div>
 	<div class="main_img">
 		<img src="${imgSrcURL}${movie.poster_path}"/>
