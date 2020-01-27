@@ -74,7 +74,7 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  z-index: 9999;
+  z-index: 10;
   outline: 9999px solid rgba(0, 0, 0, 0.9);
   font-family: "Roboto", sans-serif;
 }
@@ -82,25 +82,28 @@
   position: fixed;
   top: 3%;
   right: 3%;
-  height: 25px;
-  width: 25px;
+  width: 30px;
   font-size: 15px;
   font-weight: 500;
   color: #f8f8f8;
   border: none;
-  padding: 0px 2px;
+  padding: 0px;
+  z-index: 30;
 }
 .modal_wrapper .close_btn:hover {
-  color: white;
+  background-color: #f8f8f8;
+  color: #081c24;
 }
 .modal_wrapper .background_poster {
   height: 50%;
   width: 100%;
+  background-color: #081c24;
 }
 .modal_wrapper .background_poster .poster_text {
   position: fixed;
   top: 15%;
   left: 40%;
+  z-index: 20;
 }
 .modal_wrapper .background_poster .poster_text .modal_movie_title {
   color: deeppink;
@@ -117,6 +120,7 @@
 .modal_wrapper .background_poster img {
   width: 100%;
   max-height: 100%;
+  filter: brightness(35%);
 }
 .modal_wrapper .movie_info {
   width: 100%;
