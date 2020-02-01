@@ -227,6 +227,7 @@ body {
   padding-inline-start: 50px;
   position: fixed;
   background-color: white;
+  z-index: 4;
 }
 #main_area #search_area #search_icon {
   width: 18px;
@@ -255,6 +256,30 @@ body {
 #main_area .scroll_area #main_image {
   background-color: blue;
   height: 383px;
+  overflow: hidden;
+}
+#main_area .scroll_area #main_image img {
+  height: 700px;
+  width: 100%;
+  margin-top: -100px;
+  -webkit-filter: sepia(70%);
+  opacity: 0.8;
+}
+#main_area .scroll_area #main_image #main_text {
+  position: relative;
+  top: -120%;
+  left: 20%;
+  z-index: 3;
+}
+#main_area .scroll_area #main_image #main_text #buscador {
+  color: #f8f8f8;
+  font-weight: 100;
+  font-size: large;
+}
+#main_area .scroll_area #main_image #main_text #tmdb {
+  color: deeppink;
+  font-size: xx-large;
+  font-weight: 500;
 }
 
 .hidden {
