@@ -139,7 +139,7 @@ const appendMovieDetails = movie => {
 			<p class="modal_movie_title">${movie.title}</p>
 			<p class="tagline">${movie.tagline}<p>
 		</div>
-		<img src="${imgSrcURL}${movie.backdrop_path}" />
+    <img src="${imgSrcURL}${movie.backdrop_path}"/>
 	</div>
 	<div class="movie_info">
 		<p class="overview">${movie.overview}</p>
@@ -149,7 +149,8 @@ const appendMovieDetails = movie => {
     <p class="date">${movie.release_date}</p>
 	</div>
 	<div class="main_img">
-		<img src="${imgSrcURL}${movie.poster_path}"/>
+    <img src="${imgSrcURL}${movie.poster_path}"
+    onerror="this.onerror=null;this.src='./assets/no-image.png';"/>
 	</div>	`;
 };
 const openMovieDetails = async movieId => {
