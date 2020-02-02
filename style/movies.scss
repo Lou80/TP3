@@ -34,6 +34,12 @@
         flex-wrap: wrap;
         padding: 0%;
         list-style: none;
+        p#error {
+          width: 100%;
+        }
+        button#error_btn {
+          margin: auto;
+        }
       }
     }
   }

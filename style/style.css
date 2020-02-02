@@ -38,6 +38,12 @@
   padding: 0%;
   list-style: none;
 }
+#movies #main_screen .wrapper .movies_list p#error {
+  width: 100%;
+}
+#movies #main_screen .wrapper .movies_list button#error_btn {
+  margin: auto;
+}
 
 .movies_item {
   width: 20%;

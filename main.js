@@ -55,10 +55,12 @@ const getMovies = list => {
   let mappedList = list
     .map(
       movie =>
-        `<li class="movies_item" id="${movie.id}">
+        `
+        <li class="movies_item" id="${movie.id}">
 					<div class="movies_item_content" onclick="openMovieDetails(${movie.id})">
             			<div class="movies_item_poster">
-                			<img src="${imgSrcURL}${movie.poster_path}"/>
+                      <img src="${imgSrcURL}${movie.poster_path}"
+                      onerror="this.onerror=null;this.src='./assets/no-image.png';" />
             			</div>
             			<div class="movies_item_info">
                 			<p class="movies_item_title">${movie.title}</p>
@@ -72,15 +74,26 @@ const getMovies = list => {
 const drawLists = async (category, slice, start, end) => {
   await appendWrapperAndTitle(category);
   const moviesList = await document.getElementById(`movies_list_${category}`);
-  let getAllMovies = await getFetchCategory(category);
-  const link = await document.querySelector(".movies_link span.results");
-  link.innerText = `${getAllMovies[1]} results`;
-  if (slice) {
-    getSelection = await getSomeResults(getAllMovies[0], start, end);
-  } else getSelection = getAllMovies[0];
-  let doMap = await getMovies(getSelection);
-  let draw = (moviesList.innerHTML += doMap);
-  return draw;
+  try {
+    let getAllMovies = await getFetchCategory(category);
+    if (!getAllMovies[0].length) throw "Ooops! No movies around...";
+    const link = await document.querySelector(".movies_link span.results");
+    link.innerText = `${getAllMovies[1]} results`;
+    if (slice) {
+      getSelection = await getSomeResults(getAllMovies[0], start, end);
+    } else {
+      getSelection = getAllMovies[0];
+      if ((await getAllMovies[2]) > currentPage) {
+        document.querySelector(".load_more").classList.remove("hidden");
+      }
+    }
+    let doMap = await getMovies(getSelection);
+    let draw = (moviesList.innerHTML += doMap);
+    return draw;
+  } catch (err) {
+    moviesList.innerHTML = `<p id="error">${err}</p>
+     <button id="error_btn"onclick="getHome()">HOME</button>`;
+  }
 };
 const getHome = () => {
   mainImage.classList.remove("hidden");
@@ -92,11 +105,11 @@ const getHome = () => {
   });
 };
 getHome();
+
 const getCategory = async category => {
   mainImage.classList.add("hidden");
   mainScreen.innerHTML = "";
   await drawLists(category, false);
-  await document.querySelector(".load_more").classList.remove("hidden");
   const link = await document.querySelector(".movies_link span.results");
   link.classList.remove("hidden");
   await document
@@ -126,7 +139,7 @@ const appendMovieDetails = movie => {
 			<p class="modal_movie_title">${movie.title}</p>
 			<p class="tagline">${movie.tagline}<p>
 		</div>
-		<img src="${imgSrcURL}${movie.backdrop_path}"/>
+		<img src="${imgSrcURL}${movie.backdrop_path}" />
 	</div>
 	<div class="movie_info">
 		<p class="overview">${movie.overview}</p>
@@ -144,7 +157,7 @@ const openMovieDetails = async movieId => {
   await appendMovieDetails(movie);
   modalWrapper.classList.remove("hidden");
   app.onclick = () => {
-    modalWrapper.classList.add("hidden");
+    closeMovieModal();
   };
 };
 const closeMovieModal = () => {
