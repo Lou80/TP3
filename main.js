@@ -8,6 +8,7 @@ const menuItems = [...document.querySelectorAll("#side_bar ul li")];
 const categories = ["popular", "top_rated", "upcoming", "now_playing"];
 const app = document.getElementById("app");
 const modalWrapper = document.querySelector(".modal_wrapper");
+
 async function getFetchCategory(category) {
   let response = await fetch(
     `${apiURL}${category}${apiKey}&page=${currentPage}`
@@ -15,15 +16,14 @@ async function getFetchCategory(category) {
   let movies = await response.json();
   let fetchedMovies = await movies.results;
   let totalResults = await movies.total_results;
-  return [fetchedMovies, totalResults];
+  let totalPages = await movies.total_pages;
+  return [fetchedMovies, totalResults, totalPages];
 }
 async function getFetchMovie(movieId) {
   let response = await fetch(`${apiURL}${movieId}${apiKey}`);
   let movie = await response.json();
-  console.log(movie);
   return movie;
 }
-getFetchMovie("419704");
 function getSomeResults(list, start, end) {
   let someResults = list.slice(start, end);
   return someResults;

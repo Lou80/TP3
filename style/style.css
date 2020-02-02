@@ -259,16 +259,16 @@ body {
   overflow: hidden;
 }
 #main_area .scroll_area #main_image img {
-  height: 700px;
+  height: 600px;
   width: 100%;
-  margin-top: -100px;
+  margin-top: -70px;
   -webkit-filter: sepia(70%);
   opacity: 0.8;
 }
 #main_area .scroll_area #main_image #main_text {
   position: relative;
-  top: -120%;
-  left: 20%;
+  top: -85%;
+  left: 13%;
   z-index: 3;
 }
 #main_area .scroll_area #main_image #main_text #buscador {
