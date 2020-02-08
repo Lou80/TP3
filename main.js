@@ -1,6 +1,7 @@
 const apiURL = "https://api.themoviedb.org/3/movie/";
 const apiKey = "?api_key=9efd0ea0ec598fc52a2db7991ba2e31b";
 const imgSrcURL = "https://image.tmdb.org/t/p/original";
+const searchURL = "https://api.themoviedb.org/3/search/movie";
 let currentPage = 1;
 const mainScreen = document.getElementById("main_screen");
 const mainImage = document.getElementById("main_image");
@@ -8,6 +9,8 @@ const menuItems = [...document.querySelectorAll("#side_bar ul li")];
 const categories = ["popular", "top_rated", "upcoming", "now_playing"];
 const app = document.getElementById("app");
 const modalWrapper = document.querySelector(".modal_wrapper");
+const input = document.querySelector("input#search");
+const results = document.getElementById("autocomplete_results");
 
 async function getFetchCategory(category) {
   let response = await fetch(
@@ -104,8 +107,6 @@ const getHome = () => {
     listItem.classList.remove("selected");
   });
 };
-getHome();
-
 const getCategory = async category => {
   mainImage.classList.add("hidden");
   mainScreen.innerHTML = "";
@@ -164,3 +165,24 @@ const openMovieDetails = async movieId => {
 const closeMovieModal = () => {
   modalWrapper.classList.add("hidden");
 };
+input.onkeyup = function() {
+  const query = input.value;
+  const queryUrl = `${searchURL}${apiKey}&query=${query}`;
+
+  fetch(queryUrl)
+    .then(res => res.json())
+    .then(data => {
+      const movies = data.results;
+      results.innerHTML = movies
+        .map(movie => `<li class="list-item">${movie.title}</li>`)
+        .join("");
+      results.style.display = "block";
+      document.querySelectorAll("li.list-item").forEach(function(li) {
+        li.addEventListener("click", function(e) {
+          input.value = e.target.innerHTML;
+          results.style.display = "none";
+        });
+      });
+    });
+};
+getHome();

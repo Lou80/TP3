@@ -1,4 +1,6 @@
 @import "colors";
+@import "side_bar";
+@import "search_area";
 @import "movies";
 @import "movies_item";
 @import "modal_movie_details";
@@ -31,96 +33,38 @@ body {
   }
 }
 
-#side_bar ul li {
-  height: 96px;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  border-bottom: 1px solid $main-background;
-  color: $menu-color;
-  font-size: 9px;
-  letter-spacing: 0.5px;
-  font-weight: 300;
-  cursor: pointer;
-  svg {
-    height: 20px;
-    width: 20px;
-    fill: $menu-color;
-  }
-}
-#logo {
-  height: 75px !important;
-  background-color: black;
-  img {
-    width: 45px;
-    height: 40px;
-  }
-}
 #main_area {
   width: 94%;
   position: relative;
   left: 6%;
-  #search_area {
-    width: 100%;
-    height: 75px;
-    display: flex;
-    align-items: center;
-    padding-inline-start: 50px;
-    position: fixed;
-    background-color: $no-background;
-    z-index: 4;
-    #search_icon {
-      width: 18px;
-      height: 18px;
-      fill: $menu-color;
-    }
-    input {
-      border: none;
+}
+.scroll_area {
+  margin-top: 75px;
+  #main_image {
+    background-color: blue;
+    height: 383px;
+    overflow: hidden;
+    img {
+      height: 600px;
       width: 100%;
-      height: 100%;
-      font-weight: 300;
-      font-size: 16px;
-      padding: 15px 12px;
-      font-family: "Roboto", "sans-serif";
+      margin-top: -70px;
+      -webkit-filter: sepia(70%);
+      opacity: 0.8;
     }
-    input:focus {
-      outline: none !important;
-      outline-width: 0 !important;
-      box-shadow: none;
-      -moz-box-shadow: none;
-      -webkit-box-shadow: none;
-    }
-  }
-  .scroll_area {
-    margin-top: 75px;
-    #main_image {
-      background-color: blue;
-      height: 383px;
-      overflow: hidden;
-      img {
-        height: 600px;
-        width: 100%;
-        margin-top: -70px;
-        -webkit-filter: sepia(70%);
-        opacity: 0.8;
+    #main_text {
+      position: relative;
+      top: -85%;
+      left: 13%;
+      z-index: 3;
+      #app_title {
+        color: $main-background;
+        font-weight: 100;
+        font-size: large;
       }
-      #main_text {
-        position: relative;
-        top: -85%;
-        left: 13%;
-        z-index: 3;
-        #buscador {
-          color: $main-background;
-          font-weight: 100;
-          font-size: large;
-        }
-        #tmdb {
-          color: deeppink;
-          font-size: xx-large;
-          font-weight: 500;
-        }
+      #tmdb {
+        color: deeppink;
+        font-size: xx-large;
+        font-weight: 500;
       }
     }
   }
