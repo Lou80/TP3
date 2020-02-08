@@ -11,6 +11,7 @@ const app = document.getElementById("app");
 const modalWrapper = document.querySelector(".modal_wrapper");
 const input = document.querySelector("input#search");
 const results = document.getElementById("autocomplete_results");
+const searchIcon = document.getElementById("search_icon");
 
 async function getFetchCategory(category) {
   let response = await fetch(
@@ -26,6 +27,11 @@ async function getFetchMovie(movieId) {
   let response = await fetch(`${apiURL}${movieId}${apiKey}`);
   let movie = await response.json();
   return movie;
+}
+async function getFetchQuery(query) {
+  let queryResponse = await fetch(`${searchURL}${apiKey}&query=${query}`);
+  let data = await queryResponse.json();
+  return data;
 }
 function getSomeResults(list, start, end) {
   let someResults = list.slice(start, end);
@@ -165,24 +171,32 @@ const openMovieDetails = async movieId => {
 const closeMovieModal = () => {
   modalWrapper.classList.add("hidden");
 };
-input.onkeyup = function() {
+input.onkeyup = async function() {
   const query = input.value;
-  const queryUrl = `${searchURL}${apiKey}&query=${query}`;
+  if (query.length >= 2) {
+    const movies = await getFetchQuery(query);
+    const fetchedQuery = await movies.results;
+    results.innerHTML = fetchedQuery
+      .map(movie => `<li class="list-item">${movie.title}</li>`)
+      .join("");
 
-  fetch(queryUrl)
-    .then(res => res.json())
-    .then(data => {
-      const movies = data.results;
-      results.innerHTML = movies
-        .map(movie => `<li class="list-item">${movie.title}</li>`)
-        .join("");
-      results.style.display = "block";
-      document.querySelectorAll("li.list-item").forEach(function(li) {
-        li.addEventListener("click", function(e) {
-          input.value = e.target.innerHTML;
-          results.style.display = "none";
-        });
+    results.style.display = "block";
+    document.querySelectorAll("li.list-item").forEach(function(li) {
+      li.addEventListener("click", function(e) {
+        input.value = e.target.innerHTML;
+        results.style.display = "none";
       });
     });
+  } else results.style.display = "none";
 };
+searchIcon.addEventListener("click", async function(e) {
+  const query = input.value;
+  if (query) {
+    try {
+      const movies = await getFetchQuery(query);
+      const fetchedQuery = await movies.results;
+    } catch (err) {}
+  }
+});
+
 getHome();
