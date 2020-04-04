@@ -1,3 +1,16 @@
+@mixin styleBox {
+  border: 1px solid $body-color;
+  font-weight: 300;
+  font-size: 11px;
+  line-height: 2;
+  letter-spacing: 0.5px;
+  padding: 5px 20px 4px;
+  cursor: pointer;
+  color: $body-color;
+  background: transparent;
+  outline: none;
+}
+
 #search_area {
   width: 100%;
   height: 75px;
@@ -8,8 +21,8 @@
   background-color: $no-background;
   z-index: 4;
   #search_icon {
-    width: 18px;
-    height: 18px;
+    width: 18px !important;
+    height: 18px !important;
     fill: $menu-color;
   }
   input {
@@ -30,10 +43,13 @@
   }
   #autocomplete_results {
     display: none;
-    width: 100%;
+    width: 25%;
     //margin-top: -2px;
     color: #eee;
     list-style: none;
+    position: absolute;
+    top: 59px;
+    left: 1px;
   }
   input:-webkit-placeholder {
     color: grey;
@@ -42,11 +58,16 @@
     color: grey;
   }
   #autocomplete_results li {
-    width: 100%;
-    padding: 7px 15px;
-    border-right: 2px solid #eee;
-    border-bottom: 2px solid #eee;
-    border-left: 2px solid #eee;
+    @include styleBox();
+    //background-color: ;
+    background: $body-color;
+    border: $main-background;
+    color: $main-background;
+    // width: 100%;
+    // padding: 7px 15px;
+    // border-right: 2px solid #eee;
+    // border-bottom: 2px solid #eee;
+    // border-left: 2px solid #eee;;;;;
   }
   #autocomplete_results li:hover {
     background: rgba(105, 111, 118, 0.8);

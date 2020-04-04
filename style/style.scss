@@ -80,16 +80,7 @@ body {
 }
 
 button {
-  border: 1px solid $body-color;
-  font-weight: 300;
-  font-size: 11px;
-  line-height: 2;
-  letter-spacing: 0.5px;
-  padding: 5px 20px 4px;
-  cursor: pointer;
-  color: $body-color;
-  background: transparent;
-  outline: none;
+  @include styleBox();
 }
 button:hover {
   background-color: $body-color;
