@@ -20,7 +20,7 @@
 
 #logo {
   height: 75px !important;
-  background-color: black;
+  background-color: #ac1867;
 }
 #logo img {
   width: 45px;
@@ -84,9 +84,11 @@
   color: #081c24;
   background: transparent;
   outline: none;
-  background: #081c24;
-  border: #f8f8f8;
+  background: grey;
+  border-color: #f8f8f8;
   color: #f8f8f8;
+  font-family: "Roboto", "sans-serif";
+  font-size: 14px;
 }
 #search_area #autocomplete_results li:hover {
   background: rgba(105, 111, 118, 0.8);
@@ -318,7 +320,7 @@ body {
   font-size: large;
 }
 .scroll_area #main_image #main_text #tmdb {
-  color: deeppink;
+  color: #ac1867;
   font-size: xx-large;
   font-weight: 500;
 }

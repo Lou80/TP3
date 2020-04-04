@@ -44,7 +44,6 @@
   #autocomplete_results {
     display: none;
     width: 25%;
-    //margin-top: -2px;
     color: #eee;
     list-style: none;
     position: absolute;
@@ -59,15 +58,11 @@
   }
   #autocomplete_results li {
     @include styleBox();
-    //background-color: ;
-    background: $body-color;
-    border: $main-background;
+    background: grey;
+    border-color: $main-background;
     color: $main-background;
-    // width: 100%;
-    // padding: 7px 15px;
-    // border-right: 2px solid #eee;
-    // border-bottom: 2px solid #eee;
-    // border-left: 2px solid #eee;;;;;
+    font-family: "Roboto", "sans-serif";
+    font-size: 14px;
   }
   #autocomplete_results li:hover {
     background: rgba(105, 111, 118, 0.8);
