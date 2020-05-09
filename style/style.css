@@ -302,15 +302,14 @@ body {
   overflow: hidden;
 }
 .scroll_area #main_image img {
-  height: 600px;
-  width: 100%;
-  margin-top: -70px;
+  margin-top: -23%;
+  margin-left: -4%;
   -webkit-filter: sepia(70%);
   opacity: 0.8;
 }
 .scroll_area #main_image #main_text {
-  position: relative;
-  top: -85%;
+  position: absolute;
+  top: 10%;
   left: 13%;
   z-index: 3;
 }

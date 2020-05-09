@@ -38,44 +38,42 @@ function getSomeResults(list, start, end) {
   return someResults;
 }
 function doAllCategories(method, flag, start, end) {
-  categories.forEach(category => {
+  categories.forEach((category) => {
     method(category, flag, start, end);
   });
 }
-const appendWrapperAndTitle = category => {
+const appendWrapperAndTitle = (category) => {
   mainScreen.innerHTML += `<div class="wrapper">
-    	<header class="movies_header" id="header_${category}">
-        	<h2 class="movies_title" id="movies_title_${category}"></h2>
-			<div class="movies_link" id="movies_link_${category}">
-				<span class='view_all' onclick="viewAll()">View All →</span>
-				<span class='hidden results'></span>
-			</div>
-    	</header>
-    	<ul class="movies_list" id="${"movies_list_"}${category}"></ul>
-    		<div class="load_more hidden">
-				<button id="load_more_${category}" onclick="loadMore()" class="load_more_btn">
-					LOAD MORE</button>
-    		</div>
-	</div>`;
+      <header class="movies_header" id="header_${category}">
+        <h2 class="movies_title" id="movies_title_${category}"></h2>
+			  <div class="movies_link" id="movies_link_${category}">
+				  <span class='view_all' onclick="viewAll()">View All →</span>
+				  <span class='hidden results'></span>
+			  </div>
+      </header>
+      <ul class="movies_list" id="${"movies_list_"}${category}"></ul>
+      <div class="load_more hidden">
+			  <button id="load_more_${category}" onclick="loadMore()" class="load_more_btn">LOAD MORE</button>
+      </div>
+  	</div>`;
   const moviesTitle = document.getElementById(`movies_title_${category}`);
   moviesTitle.innerText = `${category}${" Movies"}`.replace("_", " ");
 };
-const getMovies = list => {
+const getMovies = (list) => {
   let mappedList = list
     .map(
-      movie =>
-        `
-        <li class="movies_item" id="${movie.id}">
-					<div class="movies_item_content" onclick="openMovieDetails(${movie.id})">
-            			<div class="movies_item_poster">
-                      <img src="${imgSrcURL}${movie.poster_path}"
-                      onerror="this.onerror=null;this.src='./assets/no-image.png';" />
-            			</div>
-            			<div class="movies_item_info">
-                			<p class="movies_item_title">${movie.title}</p>
-						</div>
+      (movie) =>
+        `<li class="movies_item" id="${movie.id}">
+			    <div class="movies_item_content" onclick="openMovieDetails(${movie.id})">
+            <div class="movies_item_poster">
+            <img src="${imgSrcURL}${movie.poster_path}"
+            onerror="this.onerror=null;this.src='./assets/no-image.png';" />
+          </div>
+          <div class="movies_item_info">
+            <p class="movies_item_title">${movie.title}</p>
 					</div>
-				</li>`
+				</div>
+			</li>`
     )
     .join("");
   return mappedList;
@@ -109,11 +107,11 @@ const getHome = () => {
   mainScreen.innerHTML = "";
   currentPage = 1;
   doAllCategories(drawLists, true, 0, 5);
-  menuItems.forEach(listItem => {
+  menuItems.forEach((listItem) => {
     listItem.classList.remove("selected");
   });
 };
-const getCategory = async category => {
+const getCategory = async (category) => {
   mainImage.classList.add("hidden");
   mainScreen.innerHTML = "";
   await drawLists(category, false);
@@ -131,13 +129,13 @@ const loadMore = () => {
   currentPage += 1;
   getCategory(event.target.id.substring(10));
 };
-const focusSelection = category => {
-  menuItems.forEach(listItem => {
+const focusSelection = (category) => {
+  menuItems.forEach((listItem) => {
     listItem.classList.remove("selected");
   });
   document.getElementById(`menu_${category}`).classList.add("selected");
 };
-const appendMovieDetails = movie => {
+const appendMovieDetails = (movie) => {
   modalWrapper.innerHTML = "";
   modalWrapper.innerHTML += `
 	<button class="close_btn" onclick="closeMovieModal()">X</button>
@@ -151,7 +149,7 @@ const appendMovieDetails = movie => {
 	<div class="movie_info">
 		<p class="overview">${movie.overview}</p>
 		<p class="title">GENRES</p>
-		<p class="genres">${movie.genres.map(genre => genre.name)}</p>
+		<p class="genres">${movie.genres.map((genre) => genre.name)}</p>
 		<p class="title">RELEASE DATE</p>
     <p class="date">${movie.release_date}</p>
 	</div>
@@ -160,7 +158,7 @@ const appendMovieDetails = movie => {
     onerror="this.onerror=null;this.src='./assets/no-image.png';"/>
 	</div>	`;
 };
-const openMovieDetails = async movieId => {
+const openMovieDetails = async (movieId) => {
   const movie = await getFetchMovie(movieId);
   await appendMovieDetails(movie);
   modalWrapper.classList.remove("hidden");
@@ -171,25 +169,25 @@ const openMovieDetails = async movieId => {
 const closeMovieModal = () => {
   modalWrapper.classList.add("hidden");
 };
-input.onkeyup = async function() {
+input.onkeyup = async function () {
   const query = input.value;
   if (query.length >= 2) {
     const movies = await getFetchQuery(query);
     const fetchedQuery = await movies.results;
     results.innerHTML = fetchedQuery
-      .map(movie => `<li class="list-item">${movie.title}</li>`)
+      .map((movie) => `<li class="list-item">${movie.title}</li>`)
       .join("");
 
     results.style.display = "block";
-    document.querySelectorAll("li.list-item").forEach(function(li) {
-      li.addEventListener("click", function(e) {
+    document.querySelectorAll("li.list-item").forEach(function (li) {
+      li.addEventListener("click", function (e) {
         input.value = e.target.innerHTML;
         results.style.display = "none";
       });
     });
   } else results.style.display = "none";
 };
-searchIcon.addEventListener("click", async function(e) {
+searchIcon.addEventListener("click", async function (e) {
   const query = input.value;
   if (query) {
     try {
