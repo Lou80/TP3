@@ -42,7 +42,8 @@ function doAllCategories(method, flag, start, end) {
     method(category, flag, start, end);
   });
 }
-const appendWrapperAndTitle = (category) => {
+const appendWrapperAndTitle = (category = "Search Results", ...args) => {
+  //console.log([...args]);
   mainScreen.innerHTML += `<div class="wrapper">
       <header class="movies_header" id="header_${category}">
         <h2 class="movies_title" id="movies_title_${category}"></h2>
@@ -57,7 +58,10 @@ const appendWrapperAndTitle = (category) => {
       </div>
   	</div>`;
   const moviesTitle = document.getElementById(`movies_title_${category}`);
-  moviesTitle.innerText = `${category}${" Movies"}`.replace("_", " ");
+  moviesTitle.innerText =
+    category === "Search Results"
+      ? "Search Results"
+      : `${category}${" Movies"}`.replace("_", " ");
 };
 const getMovies = (list) => {
   let mappedList = list
@@ -66,14 +70,14 @@ const getMovies = (list) => {
         `<li class="movies_item" id="${movie.id}">
 			    <div class="movies_item_content" onclick="openMovieDetails(${movie.id})">
             <div class="movies_item_poster">
-            <img src="${imgSrcURL}${movie.poster_path}"
-            onerror="this.onerror=null;this.src='./assets/no-image.png';" />
-          </div>
-          <div class="movies_item_info">
-            <p class="movies_item_title">${movie.title}</p>
-					</div>
-				</div>
-			</li>`
+              <img src="${imgSrcURL}${movie.poster_path}"
+              onerror="this.onerror=null;this.src='./assets/no-image.png';" />
+            </div>
+            <div class="movies_item_info">
+              <p class="movies_item_title">${movie.title}</p>
+					  </div>
+				  </div>
+			  </li>`
     )
     .join("");
   return mappedList;
@@ -193,8 +197,16 @@ searchIcon.addEventListener("click", async function (e) {
     try {
       const movies = await getFetchQuery(query);
       const fetchedQuery = await movies.results;
+      return showQueryResults(fetchedQuery);
+      //console.log(getMovies(fetchedQuery));
+      //mainScreen.innerHTML = getCategory(getMovies(fetchedQuery));
     } catch (err) {}
   }
 });
+
+const showQueryResults = async (movies) => {
+  appendWrapperAndTitle();
+  await console.log(getMovies(movies));
+};
 
 getHome();

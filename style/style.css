@@ -41,6 +41,7 @@
   width: 18px !important;
   height: 18px !important;
   fill: rgba(8, 28, 36, 0.5);
+  cursor: pointer;
 }
 #search_area input {
   border: none;
