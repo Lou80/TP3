@@ -108,6 +108,7 @@ const drawLists = async (category, slice, start, end) => {
 const getHome = () => {
   mainImage.classList.remove("hidden");
   mainScreen.innerHTML = "";
+  input.value = "";
   currentPage = 1;
   doAllCategories(drawLists, true, 0, 5);
   menuItems.forEach((listItem) => {
@@ -123,6 +124,7 @@ const getCategory = async (category) => {
     .querySelector(".movies_link span.view_all")
     .classList.add("hidden");
   focusSelection(category);
+  input.value = "";
 };
 const viewAll = () => {
   getCategory(event.target.parentNode.id.substring(12));
@@ -171,12 +173,13 @@ const openMovieDetails = async (movieId) => {
 const closeMovieModal = () => {
   modalWrapper.classList.add("hidden");
 };
-input.onkeyup = async function () {
-  const query = input.value;
-  if (query.length >= 2) {
-    const movies = await getFetchQuery(query);
-    const fetchedQuery = await movies.results;
-    results.innerHTML = fetchedQuery
+input.onkeyup = async function (e) {
+  if(e.keyCode !== 13) {
+    const query = input.value;
+    if (query.length >= 2) {
+      const movies = await getFetchQuery(query);
+      const fetchedQuery = await movies.results;
+      results.innerHTML = fetchedQuery
       .map((movie) => `<li class="list-item">${movie.title}</li>`)
       .join("");
 
@@ -184,14 +187,25 @@ input.onkeyup = async function () {
     document.querySelectorAll("li.list-item").forEach(function (li) {
       li.addEventListener("click", function (e) {
         input.value = e.target.innerHTML;
-        results.style.display = "none";
+        displaySearchResults();
       });
     });
-  } else results.style.display = "none";
+   } else hideResultsDropdownList()
+  }
 };
-searchIcon.onclick = () => {
+
+const hideResultsDropdownList = () => results.style.display = "none";
+
+input.addEventListener('keypress', function (event) {
+  if (event.keyCode === 13) displaySearchResults();
+});
+
+searchIcon.onclick = () => displaySearchResults();
+
+const displaySearchResults = () => {
   searchQuery();
-};
+  hideResultsDropdownList();
+}
 
 const searchQuery = async () => {
   const query = input.value;
