@@ -42,8 +42,7 @@ function doAllCategories(method, flag, start, end) {
     method(category, flag, start, end);
   });
 }
-const appendWrapperAndTitle = (category = "Search Results", ...args) => {
-  //console.log([...args]);
+const appendWrapperAndTitle = (category = "search_results") => {
   mainScreen.innerHTML += `<div class="wrapper">
       <header class="movies_header" id="header_${category}">
         <h2 class="movies_title" id="movies_title_${category}"></h2>
@@ -59,7 +58,7 @@ const appendWrapperAndTitle = (category = "Search Results", ...args) => {
   	</div>`;
   const moviesTitle = document.getElementById(`movies_title_${category}`);
   moviesTitle.innerText =
-    category === "Search Results"
+    category === "search_results"
       ? "Search Results"
       : `${category}${" Movies"}`.replace("_", " ");
 };
@@ -116,8 +115,7 @@ const getHome = () => {
   });
 };
 const getCategory = async (category) => {
-  mainImage.classList.add("hidden");
-  mainScreen.innerHTML = "";
+  cleanMainScreen();
   await drawLists(category, false);
   const link = await document.querySelector(".movies_link span.results");
   link.classList.remove("hidden");
@@ -191,22 +189,25 @@ input.onkeyup = async function () {
     });
   } else results.style.display = "none";
 };
-searchIcon.addEventListener("click", async function (e) {
+searchIcon.onclick = () => {
+  searchQuery();
+};
+
+const searchQuery = async () => {
   const query = input.value;
   if (query) {
     try {
       const movies = await getFetchQuery(query);
       const fetchedQuery = await movies.results;
-      return showQueryResults(fetchedQuery);
-      //console.log(getMovies(fetchedQuery));
-      //mainScreen.innerHTML = getCategory(getMovies(fetchedQuery));
-    } catch (err) {}
-  }
-});
+      cleanMainScreen();
+      appendWrapperAndTitle();
+      document.querySelector('#movies_list_search_results').innerHTML += getMovies(fetchedQuery);
+    } catch (err) {};
+}};
 
-const showQueryResults = async (movies) => {
-  appendWrapperAndTitle();
-  await console.log(getMovies(movies));
+const cleanMainScreen = () => {
+  mainImage.classList.add("hidden");
+  mainScreen.innerHTML = "";
 };
 
 getHome();
