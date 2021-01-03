@@ -12,6 +12,7 @@ const modalWrapper = document.querySelector(".modal_wrapper");
 const input = document.querySelector("input#search");
 const results = document.getElementById("autocomplete_results");
 const searchIcon = document.getElementById("search_icon");
+const link = document.querySelector(".movies_link span.results");
 
 async function getFetchCategory(category) {
   let response = await fetch(
@@ -62,6 +63,7 @@ const appendWrapperAndTitle = (category = "search_results") => {
       ? "Search Results"
       : `${category}${" Movies"}`.replace("_", " ");
 };
+
 const getMovies = (list) => {
   let mappedList = list
     .map(
@@ -81,13 +83,13 @@ const getMovies = (list) => {
     .join("");
   return mappedList;
 };
+
 const drawLists = async (category, slice, start, end) => {
   await appendWrapperAndTitle(category);
   const moviesList = await document.getElementById(`movies_list_${category}`);
   try {
     let getAllMovies = await getFetchCategory(category);
     if (!getAllMovies[0].length) throw "Ooops! No movies around...";
-    const link = await document.querySelector(".movies_link span.results");
     link.innerText = `${getAllMovies[1]} results`;
     if (slice) {
       getSelection = await getSomeResults(getAllMovies[0], start, end);
@@ -105,40 +107,49 @@ const drawLists = async (category, slice, start, end) => {
      <button id="error_btn"onclick="getHome()">HOME</button>`;
   }
 };
+
 const getHome = () => {
   mainImage.classList.remove("hidden");
   mainScreen.innerHTML = "";
   input.value = "";
   currentPage = 1;
   doAllCategories(drawLists, true, 0, 5);
+  removeMenuFocus();
+};
+
+const removeMenuFocus = () => {
   menuItems.forEach((listItem) => {
     listItem.classList.remove("selected");
   });
-};
+}
+
 const getCategory = async (category) => {
   cleanMainScreen();
   await drawLists(category, false);
-  const link = await document.querySelector(".movies_link span.results");
   link.classList.remove("hidden");
-  await document
+  document
     .querySelector(".movies_link span.view_all")
     .classList.add("hidden");
   focusSelection(category);
   input.value = "";
 };
+
 const viewAll = () => {
   getCategory(event.target.parentNode.id.substring(12));
 };
+
 const loadMore = () => {
   currentPage += 1;
   getCategory(event.target.id.substring(10));
 };
+
 const focusSelection = (category) => {
   menuItems.forEach((listItem) => {
     listItem.classList.remove("selected");
   });
   document.getElementById(`menu_${category}`).classList.add("selected");
 };
+
 const appendMovieDetails = (movie) => {
   modalWrapper.innerHTML = "";
   modalWrapper.innerHTML += `
@@ -153,26 +164,27 @@ const appendMovieDetails = (movie) => {
 	<div class="movie_info">
 		<p class="overview">${movie.overview}</p>
 		<p class="title">GENRES</p>
-		<p class="genres">${movie.genres.map((genre) => genre.name)}</p>
+		<p class="genres">${(movie.genres.map((genre) => genre.name).join(", "))}</p>
 		<p class="title">RELEASE DATE</p>
     <p class="date">${movie.release_date}</p>
 	</div>
 	<div class="main_img">
     <img src="${imgSrcURL}${movie.poster_path}"
     onerror="this.onerror=null;this.src='./assets/no-image.png';"/>
-	</div>	`;
+  </div>	`;
+  console.log(movie.genres);
 };
 const openMovieDetails = async (movieId) => {
   const movie = await getFetchMovie(movieId);
   await appendMovieDetails(movie);
   modalWrapper.classList.remove("hidden");
-  app.onclick = () => {
-    closeMovieModal();
-  };
+  app.onclick = () => closeMovieModal();
 };
+
 const closeMovieModal = () => {
   modalWrapper.classList.add("hidden");
 };
+
 input.onkeyup = async function (e) {
   if(e.keyCode !== 13) {
     const query = input.value;
@@ -184,6 +196,7 @@ input.onkeyup = async function (e) {
       .join("");
 
     results.style.display = "block";
+    app.onclick = () =>   hideResultsDropdownList();
     document.querySelectorAll("li.list-item").forEach(function (li) {
       li.addEventListener("click", function (e) {
         input.value = e.target.innerHTML;
@@ -205,6 +218,7 @@ searchIcon.onclick = () => displaySearchResults();
 const displaySearchResults = () => {
   searchQuery();
   hideResultsDropdownList();
+  removeMenuFocus();
 }
 
 const searchQuery = async () => {
@@ -214,7 +228,11 @@ const searchQuery = async () => {
       const movies = await getFetchQuery(query);
       const fetchedQuery = await movies.results;
       cleanMainScreen();
-      appendWrapperAndTitle();
+      if (!fetchedQuery.length){
+        mainScreen.innerHTML = `
+        <p>Ooops! No movies around...</p>
+        <button id="error_btn"onclick="getHome()">HOME</button>`;
+      } else appendWrapperAndTitle();
       document.querySelector('#movies_list_search_results').innerHTML += getMovies(fetchedQuery);
     } catch (err) {};
 }};
